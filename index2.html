@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOJA DE JOGOS — 1998 💙</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #008080;
+            min-height: 100vh;
+            font-family: "MS Sans Serif", Tahoma, sans-serif;
+            padding: 15px;
+        }
+        .janela {
+            background: #c0c0c0;
+            border: 3px outset #fff;
+            max-width: 520px;
+            margin: 0 auto;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+        }
+        .barra-titulo {
+            background: linear-gradient(to right, #000080, #1084d0);
+            color: white;
+            padding: 5px 10px;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .botoes-janela {
+            display: flex;
+            gap: 4px;
+        }
+        .botao-j {
+            width: 18px;
+            height: 16px;
+            border: 2px outset #fff;
+            background: #c0c0c0;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: default;
+        }
+        .corpo {
+            padding: 15px;
+        }
+        .barra-pesquisa {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+        input {
+            flex: 1;
+            padding: 6px;
+            border: 2px inset #fff;
+            font-size: 13px;
+        }
+        button {
+            padding: 6px 12px;
+            border: 3px outset #fff;
+            background: #c0c0c0;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:active { border-style: inset; }
+        .jogos-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 340px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .jogo {
+            background: #fff;
+            border: 2px outset #fff;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .jogo:hover {
+            background: #d4f0f0;
+        }
+        .icone {
+            font-size: 30px;
+        }
+        .info {
+            flex: 1;
+        }
+        .nome {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .preco {
+            color: #008000;
+            font-size: 12px;
+        }
+        .rodape {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 11px;
+            color: #555;
+        }
+        .sem-resultado {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="janela">
+    <div class="barra-titulo">
+        <span>🎮 LOJA DE JOGOS — 1998</span>
+        <div class="botoes-janela">
+            <div class="botao-j">_</div>
+            <div class="botao-j">□</div>
+            <div class="botao-j">×</div>
+        </div>
+    </div>
+
+    <div class="corpo">
+        <div class="barra-pesquisa">
+            <input type="text" id="busca" placeholder="Buscar jogo...">
+            <button onclick="buscar()">🔍</button>
+        </div>
+
+        
+            
+                
+                <div class="info">
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+            <div class="jogo" onclick="abrir('Jogo 1')">
+                <div class="icone">🚀</div>
+                <div class="info">
+                    <div class="nome">Jogo 1 — Espaço</div>
+                    <div class="preco">⭐ Disponível</div>
+                </div>
+            </div>
+            <div class="jogo" onclick="abrir('Jogo 2
+            ')">
+                <div class="icone">💾</div>
+                <div class="info">
+                    <div class="nome">RICHARD ROBLOX 1998— Corrida</div>
+                    <div class="preco">⭐ Disponível</div>
+                </div>
+                <div class="icone">🏃</div>
+                <div class="info">
+                    <div class="nome">Jogo 2 — Corrida</div>
+                    <div class="preco">⭐ Disponível</div>
+                </div>
+            </div>
+            <div class="jogo" onclick="abrir('Jogo 4')">
+                <div class="icone">🤖</div>
+                <div class="info">
+                    <div class="nome">Jogo 4 — Robôs</div>
+                    <div class="preco">⭐ Disponível</div>
+                </div>
+            </div>
+            <div class="jogo" onclick="abrir('Jogo 5')">
+                <div class="icone">🌟</div>
+                <div class="info">
+                    <div class="nome">Pegar Estrelas</div>
+                    <div class="preco">⭐ Disponível</div>
+                </div>
+            </div>
+            <div class="jogo" onclick="abrir('FNAF BETA')">
+                <div class="icone">🧸</div>
+                <div class="info">
+                    <div class="nome">FNAF BETA</div>
+                    <div class="preco">⭐ Disponível</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sem-resultado" id="semResultado">
+            🤖 Nenhum jogo encontrado...<br>
+            <a href="404.html" style="color:#000080;">Clique aqui → Tela 404 💙</a>
+        </div>
+
+        <div class="rodape">
+            Feito com 💙 por Richard — 1998
+        </div>
+    </div>
+</div>
+
+<script>
+const jogos = document.querySelectorAll('.jogo');
+const lista = document.getElementById('lista');
+const semResultado = document.getElementById('semResultado');
+
+function buscar() {
+    const termo = document.getElementById('busca').value.toLowerCase();
+    let encontrou = false;
+
+    jogos.forEach(jogo => {
+        const nome = jogo.querySelector('.nome').textContent.toLowerCase();
+        if (nome.includes(termo)) {
+            jogo.style.display = 'flex';
+            encontrou = true;
+        } else {
+            jogo.style.display = 'none';
+        }
+    });
+
+    semResultado.style.display = encontrou ? 'none' : 'block';
+}
+
+function abrir(nomeJogo) {
+    alert(`🎮 Abrindo: ${nomeJogo}\n\nEm breve você vai poder jogar! 💙✨`);
+    // Quando tiver a página do jogo, é só tirar o // abaixo:
+    // window.location.href = "seu-jogo.html";
+}
+
+document.getElementById('busca').addEventListener('keypress', e => {
+    if (e.key === 'Enter') buscar();
+});
+</script>
+
+</body>
+</html>

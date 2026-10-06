@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google+ — Tela Original 💛</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        
+        body { background: #f5f5f5; min-height: 100vh; }
+
+        /* Barra de cima */
+        .cabecalho {
+            background: #dd4b39;
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .pesquisa {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 20px;
+        }
+
+        .pesquisa input {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 2px;
+            font-size: 14px;
+        }
+
+        .usuario {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #666;
+        }
+
+        /* Lado esquerdo */
+        .conteudo {
+            display: flex;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .menu-lateral {
+            width: 200px;
+            flex-shrink: 0;
+        }
+
+        .menu-lateral a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+
+        .menu-lateral a.ativo {
+            background: #fcebe9;
+            color: #dd4b39;
+            font-weight: bold;
+        }
+
+        /* Meio e direito */
+        .feed {
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        .caixa-post {
+            background: white;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .perfil-topo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .perfil-nome { font-weight: bold; font-size: 15px; }
+        .tempo { color: #777; font-size: 12px; margin-left: auto; }
+
+        .texto-post { margin: 10px 0; color: #333; line-height: 1.5; }
+
+        .acoes {
+            display: flex;
+            gap: 20px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .acoes span { color: #666; font-size: 13px; cursor: pointer; }
+        .acoes span:hover { color: #dd4b39; }
+
+        .botao-voltar {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            padding: 12px 20px;
+            background: linear-gradient(90deg, #9933ff, #dd4b39);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .botao-voltar:hover { transform: scale(1.05); }
+
+        .homenagem {
+            text-align: center;
+            padding: 15px;
+            background: #fff0eb;
+            margin-top: 20px;
+            border-radius: 8px;
+            color: #dd4b39;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de cima -->
+    <div class="cabecalho">
+        <div class="logo">Google+</div>
+        <div class="pesquisa">
+            <input type="text" placeholder="Pesquisa">
+        </div>
+        <div class="usuario">
+            <span>Paulo</span>
+            <div class="avatar"></div>
+        </div>
+    </div>
+
+    <!-- Conteúdo -->
+    <div class="conteudo">
+        <!-- Menu esquerdo -->
+        <div class="menu-lateral">
+            <a href="#" class="ativo">🏠 Início</a>
+            <a href="#">📚 Coleções</a>
+            <a href="#">👥 Comunidades</a>
+            <a href="#">👤 Perfil</a>
+            <a href="#">🔔 Notificações</a>
+            <a href="#">⚙️ Configurações</a>
+            <a href="#">💬 Enviar feedback</a>
+            <a href="#">❓ Ajuda</a>
+        </div>
+
+        <!-- Feed -->
+        <div class="feed">
+            <div class="caixa-post">
+                <div class="perfil-topo">
+                    <span class="perfil-nome">E aí, quais são as novidades?</span>
+                    <span class="tempo">agora</span>
+                </div>
+                <p class="texto-post">Bem-vindo de volta ao Google+ 💛🕊️</p>
+            </div>
+
+            <div class="caixa-post">
+                <div class="perfil-topo">
+                    <span class="perfil-nome">Tecnoblog · Público</span>
+                    <span class="tempo">5h</span>
+                </div>
+                <p class="texto-post">Não esse, mas compraria.</p>
+                <p class="texto-post"><strong>Eu compraria um Chromebook</strong></p>
+                <div class="acoes">
+                    <span>+1 6</span>
+                    <span>💬 Comentar</span>
+                    <span>↗️ Compartilhar</span>
+                </div>
+            </div>
+
+            <div class="caixa-post">
+                <div class="perfil-topo">
+                    <span class="perfil-nome">Tecnoblog · Público</span>
+                    <span class="tempo">1d</span>
+                </div>
+                <p class="texto-post"><strong>Trocar humanos por robôs não deu tão certo</strong></p>
+                <div class="acoes">
+                    <span>+1</span>
+                    <span>💬 Comentar</span>
+                    <span>↗️ Compartilhar</span>
+                </div>
+            </div>
+
+            <div class="homenagem">
+                🕊️ Chegança e Paz · 2011—2019<br>
+                <small>Guardado no Richard MSN 💜</small>
+            </div>
+        </div>
+    </div>
+
+    <button class="botao-voltar" onclick="window.location.href='index.html'">
+        💜 Voltar ao Menu
+    </button>
+
+</body>
+</html>

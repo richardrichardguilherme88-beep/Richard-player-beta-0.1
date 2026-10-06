@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Play Músicas 1998 — Richard © 1998</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background-color: #008080;
+            font-family: "MS Sans Serif", Tahoma, Arial, sans-serif;
+            padding: 40px 20px;
+            margin: 0;
+        }
+        .player {
+            max-width: 420px;
+            margin: 0 auto;
+            border: 3px outset #FFFFFF;
+            background-color: #C0C0C0;
+        }
+        .titulo {
+            background: linear-gradient(to right, #000080, #1084D0);
+            color: white;
+            padding: 6px 12px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        .botoes-top { display: flex; gap: 4px; }
+        .btn-top {
+            width: 20px; height: 20px;
+            background: #C0C0C0;
+            border: 2px outset #FFF;
+            text-align: center;
+            font-size: 11px;
+        }
+        .menu { padding: 5px 12px; border-bottom: 1px solid #808080; }
+        .tela {
+            background: #000;
+            color: #0F0;
+            font-family: "Courier New", monospace;
+            padding: 18px;
+            margin: 15px;
+            border: 2px inset #FFF;
+            min-height: 80px;
+            font-size: 14px;
+        }
+        .lista {
+            margin: 0 15px 15px;
+            border: 2px inset #FFF;
+            background: #FFF;
+        }
+        .musica {
+            padding: 10px 15px;
+            border-bottom: 1px solid #CCC;
+            cursor: pointer;
+        }
+        .musica:hover { background: #D0E8FF; }
+        .musica.ativa { background: #80C0FF; font-weight: bold; }
+        .botoes {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 15px 20px;
+        }
+        .btn {
+            width: 60px; height: 60px;
+            background: #C0C0C0;
+            border-top: 3px solid #FFF;
+            border-left: 3px solid #FFF;
+            border-right: 3px solid #808;
+            border-bottom: 3px solid #808;
+            font-size: 22px;
+            cursor: pointer;
+        }
+        .btn:active {
+            border-top-color: #808;
+            border-left-color: #808;
+            border-right-color: #FFF;
+            border-bottom-color: #FFF;
+        }
+        .rodape {
+            padding: 8px 12px;
+            border-top: 1px solid #808080;
+            font-size: 12px;
+        }
+        .aviso {
+            background: #FF0;
+            color: #000;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px;
+            border: 2px outset #FFF;
+        }
+    </style>
+</head>
+<body>
+
+<div class="player">
+    <div class="aviso" id="aviso">
+        🔊 CLIQUE NO BOTÃO ▶️ PARA OUVIR O SOM!
+    </div>
+
+    <div class="titulo">
+        🎵 Play Músicas 1998 — Richard © 1998
+        <div class="botoes-top">
+            <span class="btn-top">_</span>
+            <span class="btn-top">□</span>
+            <span class="btn-top">×</span>
+        </div>
+    </div>
+    <div class="menu">Arquivo | Músicas | Ajuda</div>
+
+    <div class="tela" id="tela">
+        ♪ Sistema pronto!<br>
+        Clique ▶️ para ouvir 💙
+    </div>
+
+    <div class="lista" id="listaMusicas">
+        <div class="musica" onclick="tocarMusica(0)">🎵 Melodia Clássica 1998</div>
+        <div class="musica" onclick="tocarMusica(1)">🎹 Tema do Richard</div>
+        <div class="musica" onclick="tocarMusica(2)">🎶 Canção da Chuva ☔</div>
+        <div class="musica" onclick="tocarMusica(3)">✨ Brilho Estelar 💙</div>
+    </div>
+
+    <div class="botoes">
+        <button class="btn" onclick="anterior()">⏮️</button>
+        <button class="btn" onclick="tocar()">▶️</button>
+        <button class="btn" onclick="pausar()">⏸️</button>
+        <button class="btn" onclick="parar()">⏹️</button>
+        <button class="btn" onclick="proximo()">⏭️</button>
+    </div>
+
+    <div class="rodape">
+        Pronto | Richard © 1998 💙
+    </div>
+</div>
+
+<script>
+let contexto = null;
+let tocando = false;
+let indiceMusica = 0;
+let timeoutMusica = null;
+
+// FREQUÊNCIAS DAS NOTAS
+const Dó = 523, Ré = 587, Mi = 659, Fá = 698, Sol = 784, Lá = 880;
+const Si = 988, DóAlto = 1047;
+const RéG = 440, SolG = 392, DóB = 262;
+
+// AS 4 MÚSICAS — NOTAS E DURAÇÃO
+const musicas = [
+    // 1 — Melodia Clássica
+    [{f:Dó,d:0.4},{f:Ré,d:0.4},{f:Mi,d:0.4},{f:Fá,d:0.4},{f:Sol,d:0.8},
+     {f:Fá,d:0.4},{f:Mi,d:0.4},{f:Ré,d:0.4},{f:Dó,d:0.8}],
+    // 2 — Tema do Richard
+    [{f:SolG,d:0.5},{f:RéG,d:0.5},{f:Dó,d:0.5},{f:Ré,d:0.5},{f:Mi,d:0.6},
+     {f:Ré,d:0.5},{f:Dó,d:0.5},{f:RéG,d:0.5},{f:SolG,d:1.0}],
+    // 3 — Canção da Chuva
+    [{f:RéG,d:0.3},{f:SolG,d:0.3},{f:Dó,d:0.6},{f:RéG,d:0.3},
+     {f:SolG,d:0.3},{f:Dó,d:0.6},{f:Ré,d:0.3},{f:Dó,d:0.3},{f:SolG,d:0.8}],
+    // 4 — Brilho Estelar
+    [{f:Dó,d:0.25},{f:Mi,d:0.25},{f:Sol,d:0.5},{f:Lá,d:0.25},
+     {f:Sol,d:0.25},{f:Mi,d:0.5},{f:Dó,d:0.25},{f:Ré,d:0.25},{f:Mi,d:0.8}]
+];
+
+const nomes = [
+    "🎵 Melodia Clássica 1998",
+    "🎹 Tema do Richard",
+    "🎶 Canção da Chuva ☔",
+    "✨ Brilho Estelar 💙"
+];
+
+function iniciarContexto() {
+    if (!contexto) {
+        contexto = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (contexto.state === 'suspended') {
+        contexto.resume();
+    }
+    document.getElementById('aviso').style.background = '#0F0';
+    document.getElementById('aviso').innerHTML = '✅ SOM LIGADO! A ouvir! 🎵';
+    setTimeout(() => {
+        document.getElementById('aviso').style.display = 'none';
+    }, 2000);
+}
+
+function tocarNota(freq, dur) {
+    if (!tocando || !contexto) return;
+    return new Promise(res => {
+        const osc = contexto.createOscillator();
+        const ganho = contexto.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        ganho.gain.setValueAtTime(0.25, contexto.currentTime);
+        ganho.gain.exponentialRampToValueAtTime(0.001, contexto.currentTime + dur);
+        osc.connect(ganho);
+        ganho.connect(contexto.destination);
+        osc.start();
+        osc.stop(contexto.currentTime + dur);
+        setTimeout(res, dur * 1000);
+    });
+}
+
+async function reproduzir() {
+    const msc = musicas[indiceMusica];
+    document.getElementById('tela').innerHTML = nomes[indiceMusica] + "<br>♫ TOCANDO! 💙";
+    
+    document.querySelectorAll('.musica').forEach((el, i) => {
+        el.classList.toggle('ativa', i === indiceMusica);
+    });
+
+    for (let nota of msc) {
+        if (!tocando) break;
+        await tocarNota(nota.f, nota.d);
+    }
+
+    if (tocando) {
+        timeoutMusica = setTimeout(reproduzir, 400);
+    }
+}
+
+function tocarMusica(idx) {
+    iniciarContexto();
+    indiceMusica = idx;
+    tocando = true;
+    reproduzir();
+}
+
+function tocar() {
+    iniciarContexto();
+    if (!tocando) tocarMusica(indiceMusica);
+}
+
+function pausar() {
+    tocando = false;
+    clearTimeout(timeoutMusica);
+    document.getElementById('tela').innerHTML = "⏸️ PAUSADO<br>" + nomes[indiceMusica];
+}
+
+function parar() {
+    tocando = false;
+    clearTimeout(timeoutMusica);
+    document.querySelectorAll('.musica').forEach(e => e.classList.remove('ativa'));
+    document.getElementById('tela').innerHTML = "♪ PARADO<br>Clique ▶️ ou numa música 💙";
+}
+
+function anterior() {
+    parar();
+    indiceMusica = (indiceMusica - 1 + musicas.length) % musicas.length;
+    tocarMusica(indiceMusica);
+}
+
+function proximo() {
+    parar();
+    indiceMusica = (indiceMusica + 1) % musicas.length;
+    tocarMusica(indiceMusica);
+}
+</script>
+
+</body>
+</html>
